@@ -3,48 +3,56 @@
 namespace nostop8\yii2\rest_api_doc\controllers;
 
 use yii\helpers\BaseInflector;
+use yii\helpers\Inflector;
 
 class DefaultController extends \yii\base\Controller
 {
 
-    public function init()
-    {
-        $view = $this->getView();
-        \nostop8\yii2\rest_api_doc\ModuleAsset::register($view);
-        parent::init();
-    }
+	public function init()
+	{
+		$view = $this->getView();
+		\nostop8\yii2\rest_api_doc\ModuleAsset::register($view);
+		parent::init();
+	}
 
-    public function actionIndex()
-    {
-        $rules = [];
-        foreach (\Yii::$app->urlManager->rules as $urlRule) {
-            if ($urlRule instanceof \yii\rest\UrlRule) {
-                $entity = [];
-                $controllerName = current($urlRule->controller);
-                $entity['title'] = ucfirst($controllerName);
-                $urlRuleReflection = new \ReflectionClass($urlRule);
-                $rulesObject = $urlRuleReflection->getProperty('rules');
-                $rulesObject->setAccessible(true);
-                $generatedRules = $rulesObject->getValue($urlRule);
+	public function actionIndex()
+	{
+		$rules = [];
+		foreach(\Yii::$app->urlManager->rules as $urlRule) {
+			if ($urlRule instanceof \yii\rest\UrlRule) {
+				foreach($urlRule->controller as $urlName => $controllerName) {
+					$entity = [];
+					$controllerName = strrchr($controllerName, '/') === false ? $controllerName : substr(strrchr($controllerName, '/'), 1);
+					if (strpos($urlName, '/') !== false) {
+						$entity['title'] = Inflector::titleize(str_replace('/', ' - ', $urlName), true);
+					} else {
+						$entity['title'] = str_replace(['/'], '_', ucfirst($controllerName));
+					}
+					$urlRuleReflection = new \ReflectionClass($urlRule);
+					$rulesObject = $urlRuleReflection->getProperty('rules');
+					$rulesObject->setAccessible(true);
+					$generatedRules = $rulesObject->getValue($urlRule);
 
-                $entity['rules'] = $this->_processRules($generatedRules[$controllerName]);
+					$entity['rules'] = $this->_processRules($generatedRules[$urlName]);
 
-                $rules[] = $entity;
-            }
-        }
-        return $this->render('index', [
-                'rules' => $rules,
-        ]);
-    }
+					$rules[] = $entity;
+				}
+			}
+		}
+		return $this->render('index', [
+			'rules' => $rules,
+		]);
+	}
 
-    function _processRules($generatedRules)
-    {
-        $rules = [];
 
-        foreach ($generatedRules as $generatedRule) {
-            $reflectionObject = new \ReflectionClass($generatedRule);
-            $templateObject = $reflectionObject->getProperty('_template');
-            $templateObject->setAccessible(true);
+	function _processRules($generatedRules)
+	{
+		$rules = [];
+
+		foreach($generatedRules as $generatedRule) {
+			$reflectionObject = new \ReflectionClass($generatedRule);
+			$templateObject = $reflectionObject->getProperty('_template');
+			$templateObject->setAccessible(true);
             if (empty($generatedRule->verb)) {
                 continue;
             }
