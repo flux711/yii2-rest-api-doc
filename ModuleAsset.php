@@ -1,16 +1,16 @@
 <?php
 
-namespace nostop8\yii2\rest_api_doc;
+namespace flux711\yii2\rest_api_doc;
 
 class ModuleAsset extends \yii\web\AssetBundle
 {
 
-    /**
-     * @inheritdoc
-     */
-    public $sourcePath = '@vendor/nostop8/rest-api-doc/assets';
+	/**
+	 * @inheritdoc
+	 */
+	public $sourcePath = '@vendor/flux711/rest-api-doc/assets';
 
-    /**
+	/**
      * @inheritdoc
      */
     public $css = [
