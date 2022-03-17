@@ -1,13 +1,19 @@
 {
-    "name": "nostop8/rest-api-doc",
+    "name": "flux711/rest-api-doc",
     "type": "yii2-extension",
-    "description": "Simple documentation generator for Yii2 REST applications based on defined API endpoints and actions annotations.",
-    "keywords": ["yii2", "rest", "api", "generator", "documentation"],
+    "description": "Simple documentation generator for Yii2 REST applications based on defined API endpoints and actions annotations. Forked from https://github.com/nostop8/yii2-rest-api-doc",
+    "keywords": [
+        "yii2",
+        "rest",
+        "api",
+        "generator",
+        "documentation"
+    ],
     "license": "MIT",
     "authors": [
         {
-            "name": "Volodymyr Dovbenko",
-            "email": "nostop8@gmail.com"
+            "name": "Frederik Lux",
+            "email": "f.lux@phytec.de"
         }
     ],
     "require": {
@@ -16,7 +22,7 @@
     },
     "autoload": {
         "psr-4": {
-            "nostop8\\yii2\\rest_api_doc\\": ""
+            "flux711\\yii2\\rest_api_doc\\": ""
         }
     }
 }
