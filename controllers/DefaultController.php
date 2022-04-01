@@ -1,17 +1,17 @@
 <?php
 
-namespace nostop8\yii2\rest_api_doc\controllers;
+namespace flux711\yii2\rest_api_doc\controllers;
 
 use yii\helpers\BaseInflector;
 
 class DefaultController extends \yii\base\Controller
 {
 
-    public function init()
-    {
-        $view = $this->getView();
-        \nostop8\yii2\rest_api_doc\ModuleAsset::register($view);
-        parent::init();
+	public function init()
+	{
+		$view = $this->getView();
+		\flux711\yii2\rest_api_doc\ModuleAsset::register($view);
+		parent::init();
     }
 
     public function actionIndex()
