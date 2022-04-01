@@ -21,8 +21,8 @@ class DefaultController extends \yii\base\Controller
             if ($urlRule instanceof \yii\rest\UrlRule) {
                 $entity = [];
                 $controllerName = current($urlRule->controller);
-                $entity['title'] = ucfirst($controllerName);
-                $urlRuleReflection = new \ReflectionClass($urlRule);
+				$entity['title'] = str_replace(['/'], '_', ucfirst($controllerName));
+				$urlRuleReflection = new \ReflectionClass($urlRule);
                 $rulesObject = $urlRuleReflection->getProperty('rules');
                 $rulesObject->setAccessible(true);
                 $generatedRules = $rulesObject->getValue($urlRule);
