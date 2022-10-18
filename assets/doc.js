@@ -72,7 +72,7 @@
                 expand.push($(this).val());
             });
             if (expand.length) {
-                urlParams.push('expand=' + expand.join(','));
+                urlParams.push(expand.join('&'));
             }
             if (urlParams.length) {
                 url += '?' + urlParams.join('&');
