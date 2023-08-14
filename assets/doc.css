@@ -1,10 +1,16 @@
 .docs-index .label {
     color: #333;
 }
+
 .docs-index .pointer {
     cursor: pointer
 }
+
 .docs-index .ellipsis {
     text-overflow: ellipsis;
     overflow: hidden;
+}
+
+.hidden {
+    display: none;
 }
