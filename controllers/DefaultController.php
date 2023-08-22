@@ -109,8 +109,8 @@ class DefaultController extends Controller
 				$rule['filters'] = $this->_findElements($methodInfo->getDocComment(), 'Rest Filters', $pattern);
 				$rule['expand'] = $this->_findElements($methodInfo->getDocComment(), 'Rest Expand', $pattern);
 				$rule['description'] = $this->_findString($methodInfo->getDocComment(), 'Rest Description', $pattern);
-			} catch (Exception $e) {
-				// Silence
+			} catch (\ReflectionException $e) {
+				// Silence exceptions on not existing routes
 			}
 
 			if (!empty($rule['fields'])) {
